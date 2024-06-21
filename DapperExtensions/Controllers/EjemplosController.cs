@@ -122,23 +122,23 @@ namespace DapperExtensions.Controllers
         [Route("GetListView")]
         public async Task<IActionResult> GetListView()
         {
-            var userSort = new List<ISort>()
+            var userRolesViewSort = new List<ISort>()
             {
                 Predicates.Sort<UserRolesViewModel>(x => x.FirstName, true)
             };
-            var userWhere = new PredicateGroup
+            var userRolesViewWhere = new PredicateGroup
             {
                 Operator = GroupOperator.And,
                 Predicates = new List<IPredicate>()
             };
 
-            userWhere.Predicates.Add(Predicates.Field<UserRolesViewModel>(x => x.IsActive, Operator.Eq, true));
-            userWhere.Predicates.Add(Predicates.Field<UserRolesViewModel>(x => x.RoleId, Operator.Eq, 1));
+            userRolesViewWhere.Predicates.Add(Predicates.Field<UserRolesViewModel>(x => x.IsActive, Operator.Eq, true));
+            userRolesViewWhere.Predicates.Add(Predicates.Field<UserRolesViewModel>(x => x.RoleId, Operator.Eq, 1));
 
             await using var sqlConnection = new SqlConnection(_connectionString);
-            var userModels = await sqlConnection.GetListAsync<UserRolesViewModel>(userWhere, userSort);
+            var userRolesViewModel = await sqlConnection.GetListAsync<UserRolesViewModel>(userRolesViewWhere, userRolesViewSort);
 
-            return Ok(userModels);
+            return Ok(userRolesViewModel);
         }
 
         [HttpPost]
