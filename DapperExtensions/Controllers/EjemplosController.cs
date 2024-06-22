@@ -13,6 +13,7 @@ namespace DapperExtensions.Controllers
     public class EjemplosController : ControllerBase
     {
         private readonly string _connectionString = "DATA SOURCE=.\\SQLEXPRESS; DATABASE=DapperExtensions; Integrated Security=True; TrustServerCertificate=True;";
+        
         public EjemplosController()
         {
 
